@@ -14,7 +14,7 @@ private:
     wxBitmap *_image; // avatar image
 
     // data handles (not owned)
-    GraphNode *_currentNode;
+    GraphNode *_currentNode{};
     GraphNode *_rootNode;
     ChatLogic *_chatLogic;
 
@@ -28,7 +28,13 @@ public:
     ~ChatBot();
 
     //// STUDENT CODE
-    ////
+    //// Make this comply to rule of 5
+// assignment operator, copy constructor, move constructor, move assigment operator
+    ChatBot(const ChatBot &source); // copy constructor
+    ChatBot &operator=(const ChatBot &source); // copy assigment operator
+    ChatBot(ChatBot &&source) noexcept ; // move operator
+    ChatBot &operator=(ChatBot &&source) noexcept; // move assignment operator
+
 
     ////
     //// EOF STUDENT CODE

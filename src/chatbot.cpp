@@ -43,8 +43,73 @@ ChatBot::~ChatBot()
 }
 
 //// STUDENT CODE
-////
+//// Make this comply to rule of 5
+// copy constructor, assignment operator, move constructor, move assigment operator
 
+// copy constructor
+ChatBot::ChatBot(const ChatBot &source) {
+    _image = new wxBitmap(*source._image);
+    _chatLogic = source._chatLogic;
+    _rootNode = source._rootNode;
+    _currentNode = source._currentNode;
+    _chatLogic->SetChatbotHandle(this);
+
+    std::cout << "COPYING content of instance " << &source << " to instance " << this << std::endl;
+
+}
+
+// copy assignment operator
+ChatBot &ChatBot::operator=(const ChatBot &source) {
+    if (this == &source)
+        return *this;
+    delete _image;
+    _image = new wxBitmap(*source._image);
+    _chatLogic = source._chatLogic;
+    _rootNode = source._rootNode;
+    _currentNode = source._currentNode;
+    _chatLogic->SetChatbotHandle(this);
+
+
+    std::cout << "ASSIGNING content of instance " << &source << " to instance " << this << std::endl;
+    return *this;
+}
+
+// move constructor
+ChatBot::ChatBot(ChatBot &&source) noexcept {
+    _image = source._image;
+    _chatLogic = source._chatLogic;
+    _rootNode = source._rootNode;
+    _currentNode = source._currentNode;
+    _chatLogic->SetChatbotHandle(this);
+
+    source._image = NULL;
+    source._chatLogic = nullptr;
+    source._rootNode = nullptr;
+    source._currentNode = nullptr;
+
+    std::cout << "MOVING (constructor) instance " << &source << " to instance " << this << std::endl;
+}
+
+// move assignment operator
+ChatBot &ChatBot::operator=(ChatBot &&source)  noexcept {
+    if (this == &source)
+        return *this;
+    delete _image;
+
+    _image = source._image;
+    _chatLogic = source._chatLogic;
+    _rootNode = source._rootNode;
+    _currentNode = source._currentNode;
+    _chatLogic->SetChatbotHandle(this);
+
+    source._image = NULL;
+    source._chatLogic = nullptr;
+    source._rootNode = nullptr;
+    source._currentNode = nullptr;
+
+    std::cout << "MOVING (assign) instance " << &source << " to instance " << this << std::endl;
+    return *this;
+}
 ////
 //// EOF STUDENT CODE
 
